@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900;
+    @apply min-h-screen antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-xl;
+    @apply transition-all duration-200 ease-in-out;
+    @apply shadow-soft hover:shadow-medium;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply active:bg-primary-800;
+    @apply btn-feedback touch-optimized;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-slate-50 text-slate-700 font-medium py-3 px-6 rounded-xl;
+    @apply border border-slate-200 hover:border-slate-300;
+    @apply transition-all duration-200 ease-in-out;
+    @apply shadow-soft hover:shadow-medium;
+    @apply focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2;
+    @apply active:bg-slate-100;
+    @apply btn-feedback touch-optimized;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-slate-100;
+    @apply p-6 state-transition;
+  }
+  
+  .card-premium {
+    @apply bg-white rounded-3xl shadow-premium border border-slate-100;
+    @apply p-8 state-transition;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-slate-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply transition-all duration-200 ease-in-out;
+    @apply placeholder-slate-400;
+    @apply input-feedback touch-optimized;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent;
+  }
+
+  /* Mobile-specific optimizations */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+    @apply touch-manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Desktop-specific optimizations */
+  .desktop-hover {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .desktop-hover:hover {
+      @apply transform scale-105;
+    }
+  }
+
+  /* Enhanced Cross-device interactive elements */
+  .interactive-element {
+    @apply touch-manipulation cursor-pointer;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply transition-all duration-200 ease-in-out;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Desktop hover effects */
+  @media (hover: hover) and (pointer: fine) {
+    .interactive-element:hover {
+      @apply transform scale-102 shadow-medium;
+    }
+    
+    .interactive-element.btn-primary:hover {
+      @apply shadow-lg;
+    }
+    
+    .interactive-element.btn-secondary:hover {
+      @apply shadow-medium border-slate-300;
+    }
+    
+    .interactive-element.card:hover {
+      @apply shadow-large transform translate-y-[-2px];
+    }
+  }
+
+  /* Touch feedback for mobile */
+  .interactive-element:active {
+    @apply transform scale-98;
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Ripple effect for touch feedback */
+  .interactive-element::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-out, height 0.3s ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .interactive-element:active::before {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Enhanced button feedback */
+  .btn-feedback {
+    @apply interactive-element;
+    @apply relative overflow-hidden;
+  }
+
+  .btn-feedback::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease-out;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-feedback:hover::after {
+      left: 100%;
+    }
+  }
+
+  /* Card hover effects */
+  .card-interactive {
+    @apply interactive-element;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card-interactive:hover {
+      @apply shadow-premium transform translate-y-[-4px] scale-102;
+    }
+  }
+
+  /* Input field feedback */
+  .input-feedback {
+    @apply transition-all duration-200 ease-in-out;
+    @apply focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+    @apply hover:border-slate-300;
+  }
+
+  .input-feedback:focus {
+    @apply shadow-medium;
+  }
+
+  /* Loading state feedback */
+  .loading-feedback {
+    @apply animate-pulse;
+    pointer-events: none;
+  }
+
+  /* Disabled state feedback */
+  .disabled-feedback {
+    @apply opacity-50 cursor-not-allowed;
+    pointer-events: none;
+  }
+
+  .disabled-feedback:hover {
+    @apply transform-none shadow-none;
+  }
+
+  /* Responsive text sizing */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  /* Responsive spacing */
+  .p-responsive {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+
+  .px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .py-responsive {
+    @apply py-4 sm:py-6 lg:py-8;
+  }
+
+  .m-responsive {
+    @apply m-4 sm:m-6 lg:m-8;
+  }
+
+  .mb-responsive {
+    @apply mb-4 sm:mb-6 lg:mb-8;
+  }
+
+  /* Safe area support for mobile devices */
+  .safe-area-inset {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Feedback state utilities */
+  .feedback-success {
+    @apply bg-success-50 border-success-200 text-success-700;
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .feedback-warning {
+    @apply bg-warning-50 border-warning-200 text-warning-700;
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .feedback-error {
+    @apply bg-error-50 border-error-200 text-error-700;
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Micro-interaction utilities */
+  .micro-bounce {
+    @apply transition-transform duration-150 ease-out;
+  }
+
+  .micro-bounce:active {
+    @apply transform scale-95;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .micro-bounce:hover {
+      @apply transform scale-105;
+    }
+  }
+
+  .micro-lift {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .micro-lift:hover {
+      @apply transform translate-y-[-2px] shadow-medium;
+    }
+  }
+
+  .micro-glow {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .micro-glow:hover {
+      @apply shadow-lg;
+      box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.15), 0 4px 6px -2px rgba(59, 130, 246, 0.05);
+    }
+  }
+
+  /* Focus indicators for accessibility */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
+  }
+
+  /* Touch-optimized elements */
+  .touch-optimized {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Smooth state transitions */
+  .state-transition {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .state-transition-slow {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
